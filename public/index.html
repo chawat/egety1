@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+    <title>My Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #747474;
+            color: #747474;
+        }
+
+        /* Navbar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #747474;
+        }
+
+        /* Logo Section */
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .logo span {
+            margin-left: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #FFCD05;
+        }
+
+        /* Active link */
+        .nav-links a.active {
+            color: #FFCD05;
+            border-bottom: 2px solid #FFCD05;
+        }
+
+        /* Right side: search and button */
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Search Icon */
+        .search-icon {
+            cursor: pointer;
+            color: white;
+        }
+
+        .search-icon svg {
+            fill: white;
+            width: 24px;
+            height: 24px;
+            transition: fill 0.3s ease;
+        }
+
+        .search-icon:hover svg {
+            fill: #FFCD05;
+        }
+
+        /* Get Started Button */
+        .btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #FFCD05;
+            color: #FFCD05;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #FFCD05;
+            color: #747474;
+        }
+
+        /* Mobile Menu */
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        #mobileMenu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background-color: #2e2e73;
+            padding: 20px;
+            flex-direction: column;
+            text-align: center;
+            z-index: 9999;
+        }
+
+        #mobileMenu a {
+            padding: 10px 0;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s ease;
+            
+        }
+
+        #mobileMenu a:hover {
+            color: #bb8cfc;
+        }
+
+        #mobileMenu a.active {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            #mobileMenu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="/images/agy.png" alt="Logo">
+        </div>
+
+        <div class="nav-links">
+            <a href="home.html" hx-get="home.html" hx-target="#content" hx-swap="innerHTML">Home</a>
+            <a href="about.html" hx-get="about.html" hx-target="#content" hx-swap="innerHTML">About</a>
+            <a href="services.html" hx-get="services.html" hx-target="#content" hx-swap="innerHTML">Services</a>
+            <a href="contact.html" hx-get="contact.html" hx-target="#content" hx-swap="innerHTML">Contact</a>
+        </div>
+
+        <div class="right-section">
+            <!-- Search Icon -->
+            <div class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+
+            <!-- Get Started Button -->
+            <a href="#" class="btn">Get Started</a>
+
+            <!-- Mobile Menu Icon -->
+            <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+        </div>
+    </nav>
+
+    <div id="mobileMenu">
+        <a href="home.html" hx-get="home.html" hx-target="#content" hx-swap="innerHTML">Home</a>
+        <a href="about.html" hx-get="about.html" hx-target="#content" hx-swap="innerHTML">About</a>
+        <a href="services.html" hx-get="services.html" hx-target="#content" hx-swap="innerHTML">Services</a>
+        <a href="contact.html" hx-get="contact.html" hx-target="#content" hx-swap="innerHTML">Contact</a>
+    </div>
+
+    <div id="content" hx-get="home.html" hx-trigger="load"></div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        }
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = document.querySelectorAll('#mobileMenu a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').style.display = 'none';
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobileMenu');
+            const menuIcon = document.querySelector('.menu-icon');
+            if (!menu.contains(event.target) && !menuIcon.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
